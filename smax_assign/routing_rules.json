@@ -1,0 +1,59 @@
+{
+  "_aciklama": [
+    "Talep yonlendirme kurallari. Kod degistirmeden buradan yonetilir.",
+    "ONEMLI: '<<...>>' ile isaretli yerleri kendi ortaminizdaki gercek",
+    "degerlerle doldurun. Alan adlarini ogrenmek icin:",
+    "  python route_requests.py --show-sample"
+  ],
+
+  "vendors": {
+    "Proasist": {
+      "field": "<<YONLENDIRME_ALANI>>",
+      "value": "<<PROASIST_GRUP_ID>>",
+      "aliases": ["proasist", "pro asist", "proasist teknik"]
+    },
+    "Ulusal": {
+      "field": "<<YONLENDIRME_ALANI>>",
+      "value": "<<ULUSAL_GRUP_ID>>",
+      "aliases": ["ulusal", "ulusal klima", "ulusal teknik"]
+    }
+  },
+
+  "areas": {
+    "Sercan": {
+      "_aciklama": "Sercan Bey'in sorumlulugundaki lokasyonlar. Magaza kodu veya adi yazilabilir; parcali eslesme yapilir.",
+      "match_fields": ["Location", "Service", "RequestedByPerson"],
+      "values": [
+        "<<SERCAN_LOKASYON_1>>",
+        "<<SERCAN_LOKASYON_2>>"
+      ]
+    }
+  },
+
+  "rules": [
+    {
+      "name": "Sercan Bey sorumluluk alani - klima talepleri Ulusal'a",
+      "when": {
+        "area": "Sercan",
+        "any_keyword_in": {
+          "fields": ["DisplayLabel", "Description", "Category", "Service"],
+          "keywords": [
+            "klima",
+            "iklimlendirme",
+            "hvac",
+            "split klima",
+            "vrf",
+            "chiller",
+            "sogutma",
+            "kaset tipi",
+            "air condition"
+          ]
+        }
+      },
+      "then": {
+        "route_to": "Ulusal",
+        "forbid": ["Proasist"]
+      }
+    }
+  ]
+}
