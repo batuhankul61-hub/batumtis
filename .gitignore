@@ -6,3 +6,5 @@ basvurular.html
 basvurular.csv
 __pycache__/
 .pytest_cache/
+
+browser_profile/

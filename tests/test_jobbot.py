@@ -109,17 +109,17 @@ def test_end_to_end(cfg, monkeypatch, capsys):
 
     # Deneme modu hiçbir şey göndermez
     with mock.patch("smtplib.SMTP", FakeSMTP):
-        cli.main(["-c", path, "run"])
+        cli.main(["-c", path, "run", "--no-browser"])
     assert sent == []
     assert "DENEME MODU" in capsys.readouterr().out
 
     with mock.patch("smtplib.SMTP", FakeSMTP):
-        cli.main(["-c", path, "run", "--send"])
+        cli.main(["-c", path, "run", "--send", "--no-browser"])
     assert sorted(sent) == ["hr@euco.de", "jobs@acme.io"]
 
     # Tekrar çalışınca aynı ilanlara yeniden başvurmaz
     with mock.patch("smtplib.SMTP", FakeSMTP):
-        cli.main(["-c", path, "run", "--send"])
+        cli.main(["-c", path, "run", "--send", "--no-browser"])
     assert len(sent) == 2
 
     html = Path(c["export"]["html"]).read_text(encoding="utf-8")

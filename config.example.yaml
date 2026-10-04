@@ -40,6 +40,44 @@ smtp:
 daily_limit: 20              # günde en fazla kaç e-posta başvurusu
 delay_seconds: [30, 90]      # başvurular arası rastgele bekleme
 
+# --- LinkedIn / Indeed / Kariyer.net (tarayıcı ile) -------------------------
+# Önce her site için bir kez giriş yapın:  python -m jobbot login linkedin
+browser:
+  sites: [linkedin, indeed, kariyer]      # istemediğinizi silin
+  profile_dir: "browser_profile"          # oturumun saklandığı klasör
+  headless: false                          # tarayıcıyı görünür çalıştır
+  linkedin_location: "Türkiye"            # Türkiye'den çalışılabilen uzaktan işler
+  indeed_domain: "tr.indeed.com"
+  search_terms: []                         # boşsa filters.keywords kullanılır
+  # İsterseniz sitede filtreleri seçip adres çubuğundaki linki buraya yapıştırın:
+  search_urls:
+    # kariyer: ["https://www.kariyer.net/is-ilanlari?kw=musteri%20temsilcisi&..."]
+  max_pages: 2
+  require_remote_text: true                # Indeed/Kariyer: ilan metninde "uzaktan/remote" yoksa atla
+  daily_limit: {linkedin: 25, indeed: 15, kariyer: 20}
+  delay_seconds: [20, 60]                  # başvurular arası bekleme
+  # executable_path: "/usr/bin/chromium"   # gerekirse
+
+# Başvuru formlarındaki sorular için cevaplar.
+# Anahtar: soru metninde aranacak kelimeler ("|" ile alternatif), ilk eşleşen kullanılır.
+# Cevabı bulunamayan zorunlu soru olursa başvuru yarıda bırakılır ve
+# "elle başvurulacak" listesine eklenir — yanlış cevap gönderilmez.
+answers:
+  "phone|telefon|mobile": "+905xxxxxxxxx"
+  "last name|surname|soyad": "Soyad"       # "soyadınız" "adınız"dan önce gelmeli
+  "first name|adınız": "Ad"
+  "email|e-posta": "ornek@gmail.com"
+  "city|şehir|location|konum": "İstanbul"
+  "linkedin": "https://linkedin.com/in/kullanici"
+  "years of experience|how many years|kaç yıl|deneyim süre": "2"
+  "english|ingilizce": "Professional"
+  "authorized|legally|çalışma izni": "Yes"
+  "sponsorship|vize": "No"
+  "remote|uzaktan": "Yes"
+  "salary|maaş|ücret beklenti": "30000"
+  "notice period|ihbar|ne zaman başlay": "2 weeks"
+  "agree|kabul|onaylıyorum|privacy|kvkk": "Yes"
+
 database: "jobbot.db"
 export:
   html: "basvurular.html"

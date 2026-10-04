@@ -14,8 +14,12 @@ def _contains(text: str, word: str) -> bool:
     return re.search(r"(?<!\w)" + re.escape(word.lower()) + r"(?!\w)", text) is not None
 
 
-def score(job: Job, cfg: dict) -> int:
-    """0 = uygun değil. Başlıktaki eşleşme 3, etiket 2, açıklama 1 puan."""
+def score(job: Job, cfg: dict, base: int = 0, check_location: bool = True) -> int:
+    """0 = uygun değil. Başlıktaki eşleşme 3, etiket 2, açıklama 1 puan.
+
+    base: sitenin kendi aramasından gelen ilanlar zaten anahtar kelimeyle
+    eşleştiği için verilen taban puan.
+    """
     f = cfg.get("filters", {})
     title = job.title.lower()
     tags = " ".join(job.tags).lower()
@@ -28,14 +32,14 @@ def score(job: Job, cfg: dict) -> int:
 
     allowed = [l.lower() for l in f.get("allowed_locations", [])]
     loc = (job.location or "").lower()
-    if allowed and loc and not any(a in loc for a in allowed):
+    if check_location and allowed and loc and not any(a in loc for a in allowed):
         return 0
 
     for word in f.get("required_keywords", []):
         if not _contains(everything, word):
             return 0
 
-    total = 0
+    total = base
     for word in f.get("keywords", []):
         if _contains(title, word):
             total += 3

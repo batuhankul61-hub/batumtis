@@ -26,7 +26,8 @@ def export_html(rows, path: str, cfg: dict):
 <article>
   <h2><a href="{e(job.url)}" target="_blank" rel="noopener">{e(job.title)}</a></h2>
   <p class="meta">{e(job.company)} · {e(job.location or '-')} · {e(job.salary or 'maaş belirtilmemiş')}
-     · puan {row['score']} · {e(job.source)} · <b>{e(row['status'])}</b></p>
+     · puan {row['score']} · {e(job.source)} · <b>{e(row['status'])}</b>
+     {('<br><small>' + e(row['note']) + '</small>') if row['note'] else ''}</p>
   <details><summary>Ön yazı (kopyala)</summary><textarea readonly>{e(letter)}</textarea></details>
 </article>""")
     page = f"""<!doctype html>

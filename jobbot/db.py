@@ -57,12 +57,19 @@ class DB:
         ).fetchall()
         return [(Job(**json.loads(r["data"])), r) for r in rows]
 
-    def applied_today(self) -> int:
+    def applied_today(self, source: str | None = None) -> int:
         today = date.today().isoformat()
         return self.conn.execute(
-            "SELECT COUNT(*) FROM jobs WHERE status='applied' AND updated LIKE ?",
-            (today + "%",),
+            "SELECT COUNT(*) FROM jobs WHERE status='applied' AND updated LIKE ? AND key LIKE ?",
+            (today + "%", (source + ":%") if source else "%"),
         ).fetchone()[0]
+
+    def update_job(self, job: Job):
+        self.conn.execute(
+            "UPDATE jobs SET data=? WHERE key=?",
+            (json.dumps(asdict(job), ensure_ascii=False), job.key),
+        )
+        self.conn.commit()
 
     def counts(self) -> dict[str, int]:
         rows = self.conn.execute("SELECT status, COUNT(*) FROM jobs GROUP BY status")
