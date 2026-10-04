@@ -1,0 +1,46 @@
+# Bu dosyayı config.yaml olarak kopyalayın ve kendi bilgilerinizi girin:
+#   cp config.example.yaml config.yaml
+
+profile:
+  name: "Ad Soyad"
+  email: "ornek@gmail.com"
+  phone: "+90 5xx xxx xx xx"
+  linkedin: "https://linkedin.com/in/kullanici"
+  portfolio: ""
+  # Ön yazıda kullanılacak kısa tanıtım (1-3 cümle)
+  summary: >-
+    I have 3 years of experience in customer support and data entry,
+    and I am comfortable working remotely with tools like Slack, Jira and Google Workspace.
+  cv_path: "cv.pdf"          # e-postaya eklenecek CV
+
+# İlan kaynakları (hepsi herkese açık uzaktan iş siteleri)
+sources: [remotive, remoteok, arbeitnow, jobicy, himalayas]
+
+filters:
+  # Bu kelimelerin geçtiği ilanlar puan alır (başlık 3, etiket 2, açıklama 1)
+  keywords: [customer support, customer service, data entry, virtual assistant, turkish]
+  # Hepsi ilanda geçmek zorunda (boş bırakılabilir)
+  required_keywords: []
+  # Başlık/etikette geçerse ilan elenir
+  exclude_keywords: [senior, lead, principal, director, "10+ years"]
+  # İlanın konum kısıtı bunlardan birini içermeli (boş liste = hepsi kabul)
+  allowed_locations: [worldwide, anywhere, europe, emea, turkey, türkiye, global]
+  min_score: 3
+
+cover_letter_template: "templates/cover_letter_en.txt"
+email_subject: "Application for $title - $name"
+
+# E-posta ile başvuru ayarları (Gmail için "uygulama şifresi" gerekir)
+smtp:
+  host: "smtp.gmail.com"
+  port: 587
+  user: "ornek@gmail.com"
+  password_env: "JOBBOT_SMTP_PASSWORD"   # şifre dosyaya değil, bu ortam değişkenine yazılır
+
+daily_limit: 20              # günde en fazla kaç e-posta başvurusu
+delay_seconds: [30, 90]      # başvurular arası rastgele bekleme
+
+database: "jobbot.db"
+export:
+  html: "basvurular.html"
+  csv: "basvurular.csv"

@@ -1,0 +1,15 @@
+Dear Hiring Team at $company,
+
+I am writing to apply for the $title position I found at $url.
+
+$summary
+
+I am fully set up to work remotely, communicate clearly in writing, and I am used to working independently across time zones. I have attached my CV for your review and would be glad to discuss how I can contribute to $company.
+
+Thank you for your time and consideration.
+
+Best regards,
+$name
+$email
+$phone
+$linkedin

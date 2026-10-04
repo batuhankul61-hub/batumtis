@@ -1,0 +1,15 @@
+Merhaba $company ekibi,
+
+$url adresinde yayınladığınız $title pozisyonu için başvurmak istiyorum.
+
+$summary
+
+Uzaktan çalışmaya tamamen hazırım; yazılı iletişimim güçlü ve bağımsız çalışmaya alışkınım. CV'mi ekte bulabilirsiniz. $company'ye nasıl katkı sağlayabileceğimi konuşmaktan memnuniyet duyarım.
+
+Zaman ayırdığınız için teşekkür ederim.
+
+Saygılarımla,
+$name
+$email
+$phone
+$linkedin

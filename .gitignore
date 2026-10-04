@@ -1,0 +1,8 @@
+# Kişisel veriler — repoya eklenmez
+config.yaml
+*.db
+cv.*
+basvurular.html
+basvurular.csv
+__pycache__/
+.pytest_cache/
